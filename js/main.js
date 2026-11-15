@@ -242,7 +242,8 @@
   });
 
   /* ---------- Preloader + entrada do hero ---------- */
-  var intro = gsap.timeline({ defaults: { ease: "expo.out" } });
+  // timeScale 1.45 = abertura cerca de 30% mais rápida, mantendo o mesmo movimento
+  var intro = gsap.timeline({ defaults: { ease: "expo.out" } }).timeScale(1.45);
   intro
     .from(".preloader__name", { yPercent: 60, opacity: 0, duration: 0.9 })
     .from(".preloader__line", { scaleX: 0, duration: 0.8, ease: "power3.inOut" }, "-=0.5")
