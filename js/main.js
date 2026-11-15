@@ -329,7 +329,7 @@
   /* ---------- Passo a passo: linha desenha e acende os números ---------- */
   gsap.to(".steps__line span", { scaleY: 1, ease: "none", scrollTrigger: { trigger: ".steps", start: "top 70%", end: "bottom 60%", scrub: true } });
   document.querySelectorAll("[data-step]").forEach(function (li) {
-    gsap.from(li, { opacity: 0, x: 40, duration: 1, ease: "expo.out", scrollTrigger: { trigger: li, start: "top 85%" } });
+    gsap.from(li, { opacity: 0, y: 30, duration: 1, ease: "expo.out", scrollTrigger: { trigger: li, start: "top 85%" } });
     ST.create({ trigger: li, start: "top 65%", onEnter: function () { li.classList.add("is-on"); }, onLeaveBack: function () { li.classList.remove("is-on"); } });
   });
 

@@ -23,7 +23,9 @@
 html{-webkit-text-size-adjust:100%}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.65;overflow-x:hidden;overflow-x:clip;-webkit-font-smoothing:antialiased}
+html{overflow-x:hidden;overflow-x:clip}
+main,footer{overflow-x:hidden;overflow-x:clip}
 img{display:block;max-width:100%;height:auto}
 a{color:inherit}
 h1,h2,h3{margin:0;font-weight:500}
@@ -137,6 +139,7 @@ em{font-style:italic;color:var(--caramel)}
 .identify__list li:hover::after{transform:scaleX(1)}
 .identify__list .n{font-family:var(--sans);font-size:12px;color:var(--caramel);font-weight:600;letter-spacing:.1em;flex:none}
 .identify__list q{font-style:italic}
+.identify__list .t{flex:1;min-width:0}
 .identify__close{margin:4px 0 0;font-size:16px;color:var(--ink-2);max-width:56ch}
 .identify__close strong{color:var(--ink);font-weight:600}
 
@@ -287,8 +290,8 @@ mark.is-on,.no-anim mark{background-size:100% 100%}
 .place__label{margin:0 0 2px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--caramel);font-weight:600}
 .place__name{margin:0;font-family:var(--serif);font-size:22px;font-weight:600;line-height:1.2}
 .place__addr{margin:4px 0 0;font-size:15px;color:var(--ink-2)}
-.place__actions{display:flex;flex-wrap:wrap;gap:10px;padding:18px 24px 24px}
-.place__actions .btn{padding:12px 18px;font-size:13.5px}
+.place__actions{display:flex;gap:10px;padding:16px 20px 20px}
+.place__actions .btn{flex:1;justify-content:center;padding:12px 10px;font-size:13px;white-space:nowrap}
 
 /* ============ Office ============ */
 .office{padding:clamp(70px,9vw,120px) 0}
@@ -321,6 +324,9 @@ mark.is-on,.no-anim mark{background-size:100% 100%}
 .final__grid{display:grid;gap:50px;align-items:center}
 @media (min-width:900px){.final__grid{grid-template-columns:.9fr 1.1fr;gap:90px}}
 .final__media{max-width:400px;width:100%;justify-self:center}
+@media (max-width:899px){.final__media{order:2}}
+.about__sign .about__firm-cap{display:block;font-family:var(--sans);font-size:13px;color:var(--ink-2);margin-top:6px;letter-spacing:0;text-transform:none}
+.about__sign .about__firm-cap strong{font-weight:600;color:var(--ink)}
 .arch--final{aspect-ratio:4/5}
 .final__title{font-family:var(--serif);font-size:clamp(52px,8vw,104px);line-height:.95;letter-spacing:-.02em;margin-bottom:22px}
 .final__text .reveal-words{font-size:clamp(17px,1.6vw,20px);line-height:1.6;max-width:50ch;margin-bottom:18px}
