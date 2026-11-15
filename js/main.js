@@ -69,7 +69,8 @@
       if (dir > 0) {
         // a carta de cima sai voando pro lado e escorrega para o fundo da pilha
         old.style.zIndex = String(n + 2);
-        tl.to(old, { x: "62%", y: -46, rotate: 11, duration: 0.42, ease: "power2.in" })
+        // sai para a esquerda, acompanhando o dedo que arrasta para a esquerda
+        tl.to(old, { x: "-62%", y: -46, rotate: -11, duration: 0.42, ease: "power2.in" })
           .add(function () { old.style.zIndex = "0"; })
           .to(old, Object.assign({ duration: 0.6, ease: "power3.out" }, pose(Math.min(depth(cards.indexOf(old)), 3))), ">");
         cards.forEach(function (c, kk) {
@@ -131,7 +132,7 @@
     function offset(k) { var o = ((k - i) % n + n) % n; if (o > n / 2) o -= n; return o; }
     function layout(animate) {
       if (!active) return;
-      var w = cards[0].offsetWidth, gap = Math.min(18, w * 0.06), h = 0;
+      var w = cards[0].offsetWidth, gap = Math.min(18, w * 0.06);
       cards.forEach(function (c, k) {
         var o = offset(k);
         var wrap = c._o !== undefined && Math.abs(o - c._o) > 1;
@@ -142,10 +143,16 @@
         c.style.zIndex = String(10 - Math.abs(o));
         c.classList.toggle("is-center", o === 0);
         c._o = o;
-        h = Math.max(h, c.offsetHeight);
       });
-      track.style.height = h + "px";
       dots.forEach(function (d, k) { d.classList.toggle("is-active", k === i); });
+    }
+    // todos os cards com a mesma altura (a do maior)
+    function sizes() {
+      cards.forEach(function (c) { c.style.height = ""; });
+      var h = 0;
+      cards.forEach(function (c) { h = Math.max(h, c.offsetHeight); });
+      cards.forEach(function (c) { c.style.height = h + "px"; });
+      track.style.height = h + "px";
     }
     function step(d) { i = (i + d + n) % n; layout(true); }
     document.querySelectorAll(".pillars__btn").forEach(function (b) {
@@ -174,12 +181,13 @@
     track.addEventListener("dragstart", function (e) { e.preventDefault(); });
     function setMode() {
       active = mq.matches;
-      if (active) { cards.forEach(function (c) { delete c._o; }); layout(false); }
-      else { track.style.height = ""; cards.forEach(function (c) { c.style.transform = ""; c.style.opacity = ""; c.style.zIndex = ""; c.style.transition = ""; c.classList.remove("is-center"); }); }
+      if (active) { cards.forEach(function (c) { delete c._o; }); sizes(); layout(false); }
+      else { track.style.height = ""; cards.forEach(function (c) { c.style.transform = ""; c.style.opacity = ""; c.style.zIndex = ""; c.style.transition = ""; c.style.height = ""; c.classList.remove("is-center"); }); }
     }
     (mq.addEventListener ? mq.addEventListener("change", setMode) : mq.addListener(setMode));
-    window.addEventListener("resize", function () { if (active) layout(false); });
-    window.addEventListener("load", function () { if (active) layout(false); });
+    window.addEventListener("resize", function () { if (active) { sizes(); layout(false); } });
+    window.addEventListener("load", function () { if (active) { sizes(); layout(false); } });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (active) { sizes(); layout(false); } });
     setMode();
   })();
 
