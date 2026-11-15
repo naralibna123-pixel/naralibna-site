@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://naralibna.adv.br/sitemap.xml
